@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <title>A Simple Video Player</title>
+        <style>
+            video {width:50%;}
+            #durationBar {
+                border:solid 1px black;
+                width:50%;
+                margin-bottom:5px;
+            }
+
+            #positionBar {
+                height:30px;
+                color:white;
+                font-weight:bold;
+                background:steelblue;
+                text-align:center;
+            }
+        </style>
+    </head>
+
+    <body>
+        <h1>A Simple Video Player</h1>
+
+        <video id="player" ontimeupdate="progressUpdate()">
+            <source src="http://vimeo.com/1084537/download?t=1416818818&v=12943877&s=e9fcc77036b22ba0fc4eec94ae315e83" type="video/mp4">
+        </video>
+
+        <div id="durationBar">
+            <div id="positionBar">
+                <span id="displayStatus">Idle.</span>
+            </div>
+        </div>
+
+        <div>
+            <button onclick="play()">Play</button>
+            <button onclick="pause()">Pause</button>
+            <button onclick="stop()">Stop</button>
+        </div>
+
+        <p>
+            Video from <a href="http://vimeo.com/1084537" target="_blank">Big Buck Bunny on Vimeo</a>. Code from <a href="http://prosetech.com/html5-the-missing-manual/" target="_blank">HTML5 - The Missing Manual</a>
+        </p>
+
+        <script>
+            var video = document.getElementById("player");
+            var displayStatus = document.getElementById("displayStatus");
+            var positionBar = document.getElementById("positionBar");
+
+            function play() { video.play(); }
+            function pause() { video.pause(); }
+            function stop() { video.pause(); video.currentTime = 0; }
+
+            function progressUpdate(){
+                var ratio = video.currentTime / video.duration * 100;
+                positionBar.style.width = ratio + "%";
+
+                displayStatus.innerHTML = (Math.round(video.currentTime * 100) / 100) + "sec";
+            }
+        </script>
+    </body>
+</html>
