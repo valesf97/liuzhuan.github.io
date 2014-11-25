@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <title>Bezier Motion</title>
+        <style>
+            .wrapper {
+                position:absolute;
+                width:400px;
+                height:400px;
+                background:#CCC;
+                margin-top:10px;
+            }
+
+            #rect {
+                width:40px;
+                height:40px;
+                position:absolute;
+                border:1px solid #000;
+                background-color:#00C;
+                left:0px;
+                top:0px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Bezior Motion</h1>
+        <button onclick="motion()">Motion</button>
+        <div class="wrapper">
+            <div id="rect"></div>
+        </div>
+
+        <script>
+            function motion(){
+                var rect = document.getElementById("rect");
+                bezierMotion(rect, 0, 0, 200, 200, 360, 0);
+            }
+
+            function bezierMotion(target, x0, y0, x1, y1, x2, y2) {
+                target.style.left = x0 + "px";
+                target.style.top = y0 + "px";
+
+                var ratio = 0;
+                var dratio = 0.01;
+                var p0 = {x:x0, y:y0};
+                var p1 = {x:x1, y:y1};
+                var p2 = {x:x2, y:y2};
+
+                var timer = setInterval(function(){
+                    ratio += dratio;
+                    console.log('ratio: ' + ratio);
+
+                    var p01 = interpolate(ratio, p0, p1);
+                    var p12 = interpolate(ratio, p1, p2);
+                    var pt = interpolate(ratio, p01, p12);
+
+                    target.style.left = pt.x + "px";
+                    target.style.top = pt.y + "px";
+
+                    if (ratio >= 1) {
+                        clearInterval(timer);
+                        target.style.left = x2 + "px";
+                        target.style.top = y2 + "px";
+                        console.log("clear interval");
+                    }
+                }, 1000/60);
+            }
+
+            function interpolate(t, p0, p1) {
+                var pt = {};
+                pt.x = p0.x * (1-t) + p1.x * t;
+                pt.y = p0.y * (1-t) + p1.y * t;
+                return pt;
+            }
+        </script>
+    </body>
+</html>
