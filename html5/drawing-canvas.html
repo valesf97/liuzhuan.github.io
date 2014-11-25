@@ -1,0 +1,65 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-wdith, initial-scale=1.0, user-scalable=no">
+        <title>Drawing Canvas</title>
+        <style>
+            canvas {
+                border:1px solid #CCC;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Drawing Board</h1>
+        <p>The default size of canvas is 300*150, if the css value is not the same as default, the canvas will be streched. Use the width and size attribute to reset the size of canvas.</p>
+        <p>Touch doesn't work well. see <a href="https://developer.apple.com/library/safari/documentation/AudioVideo/Conceptual/HTML-canvas-guide/AddingMouseandTouchControlstoCanvas/AddingMouseandTouchControlstoCanvas.html">Adding Mouse and Touch Controls to Canvas</a> for more details.</p>
+        <canvas id="drawing" width="400" height="400"></canvas>
+
+        <script>
+            var canvas;
+            var context;
+
+            window.onload = function(){
+                canvas = document.getElementById("drawing");
+                context = canvas.getContext("2d");
+
+                canvas.onmousedown = startDrawing;
+                canvas.onmouseup = stopDrawing;
+                canvas.onmouseout = stopDrawing;
+                canvas.onmousemove = draw;
+
+                // touch events
+                canvas.addEventListener("touchstart", startDrawing);
+                canvas.addEventListener("touchmove", draw);
+                canvas.addEventListener("touchend", stopDrawing);
+            }
+
+            var isDrawing = false;
+            function startDrawing(e){
+                isDrawing = true;
+
+                context.beginPath();
+                context.moveTo(
+                    e.pageX - canvas.offsetLeft, 
+                    e.pageY - canvas.offsetTop
+                );
+            }
+
+            function stopDrawing(){
+                isDrawing = false;
+            }
+
+            function draw(e) {
+                if (isDrawing) {
+                    var x = e.pageX - canvas.offsetLeft;
+                    var y = e.pageY - canvas.offsetTop;
+                    console.log("canvas.offsetTop: " + canvas.offsetTop);
+
+                    context.lineTo(x, y);
+                    context.stroke();
+                }
+            }
+        </script>
+    </body>
+</html>
