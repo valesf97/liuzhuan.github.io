@@ -7,6 +7,7 @@
         <style>
             canvas {
                 border:1px solid #CCC;
+                cursor:pointer;
             }
         </style>
     </head>
@@ -30,9 +31,9 @@
                 canvas.onmousemove = draw;
 
                 // touch events
-                canvas.addEventListener("touchstart", startDrawing);
-                canvas.addEventListener("touchmove", draw);
-                canvas.addEventListener("touchend", stopDrawing);
+                canvas.addEventListener("touchstart", startTouchDrawing);
+                canvas.addEventListener("touchmove", touchDraw);
+                canvas.addEventListener("touchend", stopTouchDrawing);
             }
 
             var isDrawing = false;
@@ -46,7 +47,21 @@
                 );
             }
 
+            function startTouchDrawing(e){
+                isDrawing = true;
+
+                context.beginPath();
+                context.moveTo(
+                    e.targetTouches[0].pageX - canvas.offsetLeft, 
+                    e.targetTouches[0].pageY - canvas.offsetTop
+                );
+            }
+
             function stopDrawing(){
+                isDrawing = false;
+            }
+
+            function stopTouchDrawing(){
                 isDrawing = false;
             }
 
@@ -54,7 +69,16 @@
                 if (isDrawing) {
                     var x = e.pageX - canvas.offsetLeft;
                     var y = e.pageY - canvas.offsetTop;
-                    console.log("canvas.offsetTop: " + canvas.offsetTop);
+
+                    context.lineTo(x, y);
+                    context.stroke();
+                }
+            }
+
+            function touchDraw(e) {
+                if (isDrawing) {
+                    var x = e.targetTouches[0].pageX - canvas.offsetLeft;
+                    var y = e.targetTouches[0].pageY - canvas.offsetTop;
 
                     context.lineTo(x, y);
                     context.stroke();
