@@ -77,6 +77,8 @@
 
             function touchDraw(e) {
                 if (isDrawing) {
+                    e.preventDefault();
+
                     var x = e.targetTouches[0].pageX - canvas.offsetLeft;
                     var y = e.targetTouches[0].pageY - canvas.offsetTop;
 
