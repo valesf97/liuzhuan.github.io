@@ -16,10 +16,25 @@
         <p>The default size of canvas is 300*150, if the css value is not the same as default, the canvas will be streched. Use the width and size attribute to reset the size of canvas.</p>
         <p>Touch doesn't work well. see <a href="https://developer.apple.com/library/safari/documentation/AudioVideo/Conceptual/HTML-canvas-guide/AddingMouseandTouchControlstoCanvas/AddingMouseandTouchControlstoCanvas.html">Adding Mouse and Touch Controls to Canvas</a> for more details.</p>
         <canvas id="drawing" width="400" height="400"></canvas>
+        <br/>
+        <button onclick="clearCanvas()">clear</button>
+        <button onclick="save()">save</button>
 
         <script>
             var canvas;
             var context;
+
+            function clearCanvas() {
+                if (context) {
+                    context.clearRect(0, 0, canvas.width, canvas.height);
+                }
+            }
+
+            function save() {
+                console.log("save");
+                var url = canvas.toDataURL();
+                console.log(url);
+            }
 
             window.onload = function(){
                 canvas = document.getElementById("drawing");
