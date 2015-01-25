@@ -58,11 +58,22 @@
             var context = canvas.getContext("2d");
 
             function startSnow(){
-                console.log("start snow");
-                var numSnows = 10;
+                // console.log("start snow");
+                var numSnows = 200;
                 var minSnowSize = 10;
                 var maxSnowSize = 20;
                 var y = 0;
+                var snows = new Array();
+
+                for (var i = 0; i < numSnows; i++) {
+                	var snowflake = new Object();
+                	snowflake.size = randRange(minSnowSize, maxSnowSize);
+                	snowflake.x = randRange(0, canvas.width - snowflake.size);
+                	snowflake.y = randRange(-canvas.height, 0);
+                	snowflake.vy = snowflake.size / maxSnowSize * 4;
+
+                	snows.push(snowflake);
+                }
 
                 loop();
 
@@ -71,15 +82,29 @@
                 }
 
                 function loop(){
+                	console.log("loop, y:" + (y++));
+
                     context.fillStyle = "#000000";
                     context.fillRect(0, 0, canvas.width, canvas.height);
 
-                    y++;
-                    if (y > canvas.height) {
-                        y = 0;
-                    }
+                    for (var i = 0; i < numSnows; i++) {
+                    	var snowflake = snows[i];
+                    	snowflake.y += snowflake.vy;
+                    	var sx = snowflake.x;
+                    	var sy = snowflake.y;
+                    	var ss = snowflake.size;
 
-                    context.drawImage(img, 0, y); 
+                    	if (sy > canvas.height) {
+                    		snowflake.y = randRange(-canvas.height, 0) - 10;
+                    		snowflake.x = randRange(0, canvas.width - snowflake.size);
+                    	}
+
+                    	context.drawImage(img, sx, sy, ss, ss); 
+                    	// console.log("sy: " + sy + ", sv:" +sv);
+                    	if (i == 0) {
+                    		console.log("sy: " + sy + ", size:" + ss);
+                    	}
+                    }
 
                     requestAnimationFrame(loop);
                 }
