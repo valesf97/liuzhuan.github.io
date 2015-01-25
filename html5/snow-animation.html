@@ -59,10 +59,9 @@
 
             function startSnow(){
                 // console.log("start snow");
-                var numSnows = 200;
-                var minSnowSize = 10;
+                var numSnows = 50;
+                var minSnowSize = 4;
                 var maxSnowSize = 20;
-                var y = 0;
                 var snows = new Array();
 
                 for (var i = 0; i < numSnows; i++) {
@@ -71,6 +70,8 @@
                 	snowflake.x = randRange(0, canvas.width - snowflake.size);
                 	snowflake.y = randRange(0, canvas.height);
                 	snowflake.vy = snowflake.size / maxSnowSize * 4;
+                	snowflake.phase = randRange(0, Math.PI * 2);
+                	snowflake.xrange = snowflake.size * 5; // 水平方向振幅
 
                 	snows.push(snowflake);
                 }
@@ -90,7 +91,7 @@
                     for (var i = 0; i < numSnows; i++) {
                     	var snowflake = snows[i];
                     	snowflake.y += snowflake.vy;
-                    	var sx = snowflake.x;
+                    	var sx = snowflake.x + snowflake.xrange * Math.sin(snowflake.y * 0.005 + snowflake.phase);
                     	var sy = snowflake.y;
                     	var ss = snowflake.size;
 
