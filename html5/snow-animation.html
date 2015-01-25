@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>
+            Snow Animation
+        </title>
+        <style>
+            #snow {
+                border:1px solid #D00;
+                background:#000;
+            }
+        </style>
+    </head>
+
+    <body>
+        <canvas id="snow" width="640" height="1130">
+        </canvas>
+        <script>
+            var img = new Image();
+            img.src = "images/snow.gif";
+            img.onload = startSnow;
+
+            var canvas = document.getElementById("snow");
+            var context = canvas.getContext("2d");
+
+            function startSnow(){
+                console.log("start snow");
+                var numSnows = 10;
+                var minSnowSize = 10;
+                var maxSnowSize = 20;
+                var y = 0;
+
+                loop();
+
+                function randRange(min, max) {
+                    return min + Math.random() * (max - min);
+                }
+
+                function loop(){
+                    context.fillStyle = "#000000";
+                    context.fillRect(0, 0, canvas.width, canvas.height);
+
+                    y++;
+                    if (y > canvas.height) {
+                        y = 0;
+                    }
+
+                    context.drawImage(img, 0, y); 
+
+                    requestAnimationFrame(loop);
+                }
+            }
+        </script>
+    </body>
+</html>
