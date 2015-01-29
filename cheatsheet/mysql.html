@@ -4,6 +4,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <title>mysql cheatsheet</title>
+        <style>
+            pre {
+                background:#DDD;
+                padding-top:14px;
+            }
+        </style>
     </head>
     <body>
         <header>
@@ -11,10 +17,98 @@
         <a href="index.html">CheatSheet</a>
         </header>
         <h2>MySQL CheatSheet</h2>
+
         <p>Connect to and disconnect from the Server</p>
         <pre>
-        mysql -h host -u user -p
-        quit
+        mysql> mysql -h host -u user -p
+        mysql> quit
+        </pre>
+
+        <p>Entering Queries</p>
+        <pre>
+        mysql> SELECT VERSION(), CURRENT_DATE;
+        mysql> SELECT SIN(PI()/4), (4+1) * 5;
+        mysql> SELECT VERSION(); SELECT NOW();
+        mysql> SELCT USER(), CURRENT_DATE;
+        </pre>
+
+        <p>Cancel command execution.</p>
+        <pre>
+        mysql> SELECT
+            -> USER()
+            -> \c
+        </pre>
+
+        <p>find out current databases and available tables</p>
+        <pre>
+        mysql> SHOW DATABASES;
+        mysql> SHOW TABLES;
+        </pre>
+
+        <p>Access a database, and check which database is currently selected.</p>
+        <pre>
+        mysql> use test;
+        mysql> SELECT DATABASE();
+        </pre>
+
+        <p>Grant permission to use a database</p>
+        <pre>
+        mysql> GRANT ALL ON menagerie.* TO 'your_mysql_name'@'your_client_host';
+        </pre>
+
+        <p>Creating a Database</p>
+        <pre>
+        mysql> CREATE DATABASE menagerie;
+        </pre>
+
+        <p></p>
+        <pre>
+        mysql> 
+        </pre>
+
+        <p></p>
+        <pre>
+        mysql> 
+        </pre>
+
+        <p></p>
+        <pre>
+        mysql> 
+        </pre>
+
+        <p></p>
+        <pre>
+        mysql> 
+        </pre>
+
+        <p></p>
+        <pre>
+        mysql> 
+        </pre>
+
+        <p></p>
+        <pre>
+        mysql> 
+        </pre>
+
+        <p></p>
+        <pre>
+        mysql> 
+        </pre>
+
+        <p></p>
+        <pre>
+        mysql> 
+        </pre>
+
+        <p></p>
+        <pre>
+        mysql> 
+        </pre>
+
+        <p></p>
+        <pre>
+        mysql> 
         </pre>
     </body>
 </html>
