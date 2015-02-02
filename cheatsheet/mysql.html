@@ -61,9 +61,44 @@
         mysql> CREATE DATABASE menagerie;
         </pre>
 
-        <p></p>
+        <p>Create a Table</p>
         <pre>
-        mysql> 
+        mysql> CREATE TABLE pet (name VARCHAR(20), owner VARCHAR(20), 
+            -> species VARCHAR(20), sex CHAR(1), birth DATE, death DATE);
+        </pre>
+
+        <p>To verify table was created the way you expected:</p>
+        <pre>
+        mysql> DESCRIBE pet;
+        </pre>
+
+        <p>Load Data into a Table</p>
+        <pre>Whistler Gwen bird \N 1997-12-09 \N</pre>
+        <pre>
+        mysql> LOAD DATA LOCAL INFILE '/path/pet.txt' INTO TABLE pet;
+        mysql> LOAD DATA LOCAL INFILE '/path/pet.txt' INTO TABLE pet
+            -> LINES TERMINATED BY '\r\n';
+        </pre>
+
+        <p>Insert a data into table</p>
+        <pre>
+        mysql> INSERT INTO pet
+            -> VALUES ('Puffball', 'Diane', 'hamster', 'f', '1999-03-30', NULL);
+        </pre>
+
+        <p>Update Data</p>
+        <pre>
+        mysql> UPDATE pet SET birth = '1989-08-31' WHERE name = 'Bowser';
+        </pre>
+
+        <p>Select Particular Rows</p>
+        <pre>
+        mysql> SELECT * FROM pet WHERE name = 'Bowser';
+        mysql> SELECT * FROM pet WHERE birth >= '1998-1-1';
+        mysql> SELECT * FROM pet WHERE species = 'dog' AND sex = 'f';
+        mysql> SELECT * FROM pet WHERE species = 'snake' OR species = 'bird';
+        mysql> SELECT * FROM pet WHERE (species = 'cat' AND sex = 'm')
+            -> OR (species = 'dog' AND sex = 'f');
         </pre>
 
         <p></p>
@@ -71,9 +106,22 @@
         mysql> 
         </pre>
 
-        <p></p>
+        <p>Create a user</p>
         <pre>
-        mysql> 
+        mysql> CREATE USER 'jeffrey'@'localhost' IDENTIFIED BY 'password'
+        </pre>
+
+        <p>Drop User</p>
+        <pre>
+        mysql> DROP USER 'jeffrey'@'localhost';
+        </pre>
+
+        <p>Grant Syntax</p>
+        <pre>
+        mysql> CREATE USER 'jeffrey'@'localhost' IDENTIFIED BY 'mypass';
+        mysql> GRANT ALL ON db1.* TO 'jeffrey'@'localhost';
+        mysql> GRANT SELECT ON db2.invoice TO 'jeffrey'@'localhost';
+        mysql> GRANT USAGE ON *.* TO 'jeffrey'@'localhost' WITH MAX_QUERIES_PER_HOUR 90;
         </pre>
 
         <p></p>
