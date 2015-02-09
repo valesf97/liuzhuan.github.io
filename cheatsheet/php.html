@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <title>PHP cheatsheet</title>
+        <style>
+            pre {
+                background:#DDD;
+                padding-top:14px;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+        <a href="../index.html">HomePage</a> | 
+        <a href="index.html">CheatSheet</a>
+        </header>
+        <h2>PHP CheatSheet</h2>
+
+        <p>empty - Determine whether a variable is empty</p>
+        <pre>
+        bool empty(mixed $var)
+        </pre>
+
+        <p>Retrieve Form Data</p>
+        <pre>
+        $_POST['name'];
+        $_GET['age'];
+        </pre>
+
+        <p>Current PHP filename</p>
+        <pre>
+        $_SERVER['PHP_SELF'];
+        </pre>
+
+        <h2>Database</h2>
+
+        <p>Access MySQL Database server</p>
+        <pre>
+        $db = new mysqli("localhost", "username", "password", "dbname");
+        </pre>
+
+        <p>Returns a string description of the last connect error</p>
+        <pre>
+        $db->connect_error;
+        </pre>
+
+        <p>Returns the error code from last connect call</p>
+        <pre>
+        $db->connect_errno;
+        </pre>
+
+        <p>Performs a query on the database.</p>
+        <pre>
+        $result = $db->query($sql);
+        </pre>
+
+        <p>Fetch a result row as an associative array</p>
+        <pre>
+        $row = $result->fetch_assoc();
+        </pre>
+
+        <p>stripslashes - Un-quotes a quoted string</p>
+        <pre>
+        string stripslashes(string $str);
+        </pre>
+
+        <h2>Graphics</h2>
+
+        <p>Create a new image from file or URL</p>
+        <pre>
+        $image = imagecreatefrompng("button.png");
+        resource imagecreatefrompng(string $filename);
+        </pre>
+
+        <p>Give the bounding box of a text using TrueType fonts</p>
+        <pre>
+        $tsize = imagettfbbox($size, 0, $font, $_GET['message']);
+        array imagettfbbox(float $size, float $angle, string $fontfile, string $text);
+        </pre>
+
+        <p></p>
+        <pre>
+        $x = (imagesx($image) - $dx) / 2;
+        </pre>
+
+        <h2>Math</h2>
+
+        <p>Absolute value</p>
+        <pre>
+        $dx = abs($tsize[2] - $tsize[0]);
+        number abs(mixed $number);
+        </pre>
+
+    </body>
+</html>
