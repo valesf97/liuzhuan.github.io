@@ -1,0 +1,98 @@
+body { margin:0; font-family:"微软雅黑"; font-size:14px; }
+.w980 {width:980px;margin:0 auto;}
+
+/*clear*/
+.clear{ clear:both;}
+.clearfix:after{display:block;clear:both;content:".";visibility:hidden; height:0;}
+
+#index {
+	height:1050px;
+	background:#154815 url(images/index_bg.jpg) top center no-repeat;
+	position:relative;
+}
+
+#editor_word {
+	width:490px;
+	float:right;
+	clear:both;
+	color:white;
+	font-size:16px;
+	padding-top:370px;
+}
+#editor_word p {margin:10px;}
+
+#enter_btn { 
+	color:white; 
+	display:inline-block; 
+	font-size: 16px; 
+	padding-left:24px; 
+	background:url(images/mouse_icon.png) no-repeat;
+	height:31px;
+	line-height: 31px;
+	cursor:pointer;
+	float:right;
+	padding-right:220px;
+	margin-top:40px;
+}
+
+#enter_btn:hover {text-decoration: underline;}
+
+#map-container {display:none;height:100%;overflow: hidden;}
+#map-header {
+	background:url(images/header.jpg) no-repeat top center;
+	height:140px;
+}
+
+#main {
+    height: 100%;
+}
+
+.BMap_bubble_content {
+	font-size:14px;
+}
+
+.BMap_bubble_content .date {
+	background-color:#00955d;
+	color:white;
+	display:inline-block;
+	padding:2px 10px;
+	position:relative;
+}
+
+.BMap_bubble_content .site {
+	background: url(images/marker_icon.gif) no-repeat;
+	padding-left:20px;
+	height:24px;
+	line-height:24px;
+	margin-top:10px;
+	color:#00955d;
+}
+
+.bl {
+	padding-bottom:8px;
+	border-bottom:dotted 2px #999;
+	margin-bottom: 8px;
+}
+
+.BMap_bubble_content .site span {font-weight: bold;}
+
+.BMap_bubble_content .title {
+	color:#034163;
+	font-weight: bold;
+	line-height: 18px;
+}
+
+.BMap_bubble_content .comment_title {
+	color:#13b3ea;
+	padding-left:20px;
+	background:url(images/head_icon.gif) no-repeat;
+	height:17px;
+	line-height:17px;
+	font-weight:bold;
+	margin-bottom:7px;
+}
+
+.BMap_bubble_content .comment {
+	color:#034163;
+	line-height: 18px;
+}
