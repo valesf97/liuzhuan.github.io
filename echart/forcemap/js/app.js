@@ -1,10 +1,4 @@
 ﻿(function () {
-    // set up enter_btn's function
-    $("#enter_btn").click(function(){
-        $("#index").css({display:"none"});
-        $("#map-container").css({display:"block"});
-        showMap();
-    });
     // set up editor's words
     var editorWords = "在新形势下，我军积极防御战略思|想更加强调注重军事力量在和平时期的|整体运筹：既要能在国土范围内不同地|区遂行军事行动任务，也要根据国家安|全发展需要和所承担的国际责任和义务，|与外军开展交流合作，为维护世界和平|发挥积极作用。2015年上半年中，我|军在海外执行了哪些任务，有何重要意|义。一张地图带你看懂中国军队为维护|世界和平、促进共同发展的行动足迹。"
     var lines = editorWords.split("|");
@@ -17,6 +11,23 @@
         }
     }
     $("#editor_word").html(editorHTML);
+    $("#enter_btn").css({visibility:"visible"});
+
+    var numItems = 0;
+    var items = ["点击进入", "点击进入>", "点击进入>>", "点击进入>>>"];
+    var animationID = setInterval(function(){
+        $("#enter_btn").text(items[numItems]);
+        numItems++;
+        numItems%=items.length;
+    }, 200);
+
+    // set up enter_btn's function
+    $("#enter_btn").click(function(){
+        $("#index").css({display:"none"});
+        $("#map-container").css({display:"block"});
+        clearInterval(animationID);
+        showMap();
+    });
 
     require.config({
         paths: {
@@ -44,7 +55,7 @@
 
             function autoFit(){
                 $('#main').css({
-                    height:$('body').height() - 140,
+                    height:$(window).height() - 140,
                     width: $('body').width()
                 });
             }
@@ -57,12 +68,65 @@
                 enableMapClick: false
             });
             var map = BMapExt.getMap();
+            map.setMinZoom(4);
+            map.setMaxZoom(8);
+            map.addControl(new BMap.NavigationControl({anchor:BMAP_ANCHOR_TOP_RIGHT}));
+            setupMapBounds();
+
+            function setupMapBounds() {
+                map.addEventListener("dragend", restrict);
+                map.addEventListener("moveend", autoRestrict);
+
+                var zone = {
+                    ne:new BMap.Point(166.336176,63.207456),
+                    sw:new BMap.Point(-21.308122,-15.382507)
+                };
+
+                function restrict() {
+                    var bs = map.getBounds();
+                    var bssw = bs.getSouthWest();
+                    var bsne = bs.getNorthEast();
+                    var diffLng = bsne.lng - bssw.lng;
+                    var diffLat = bsne.lat - bssw.lat;
+
+                    var pt = map.getCenter();
+                    console.log(pt);
+                    if (bsne.lng > zone.ne.lng) {
+                        pt.lng -= bsne.lng - zone.ne.lng;
+                    } else if (bssw.lng < zone.sw.lng) {
+                        pt.lng -= bssw.lng - zone.sw.lng;
+                    } else if (bsne.lat > zone.ne.lat) {
+                        pt.lat -= bsne.lat - zone.ne.lat;
+                    } else if (bssw.lat < zone.sw.lat) {
+                        pt.lat -= bssw.lat - zone.sw.lat;
+                    } else {
+                        return;
+                    }
+
+                    setTimeout(function(){
+                        map.panTo(pt, {noAnimation:true});
+                    }, 10);
+                }
+
+                function autoRestrict() {
+                    map.removeEventListener("moveend", autoRestrict);
+                    restrict();
+
+                    setTimeout(function(){
+                        map.addEventListener("moveend", autoRestrict);
+                    }, 1000);
+                }
+            }
+
             var container = BMapExt.getEchartsContainer();
 
             var startPoint = {
                 x: 70.404,
                 y: 30.915
             };
+
+            startPoint = {x:100, y:36};
+
             var point = new BMap.Point(startPoint.x, startPoint.y);
             map.centerAndZoom(point, 4);
             map.enableScrollWheelZoom(true);
@@ -77,22 +141,22 @@
                         type:'map',
                         mapType: 'none',
                         data:[],
-                        geoCoord: geoCoord,
+                        geoCoord:geoCoord,
 
                         markLine : {
                             smooth:true,
                             effect : {
                                 show: true,
-                                scaleSize: 3,
-                                period: 15,
-                                color: 'green',
+                                scaleSize:3,
+                                period:15,
+                                color:'green'
                                 // shadowBlur: 10
                             },
-                            itemStyle : {
+                            itemStyle: {
                                 normal: {
                                     borderWidth:1,
                                     lineStyle: {
-                                        type: 'solid',
+                                        type: 'solid'
                                         // shadowBlur: 10
                                     },
                                     color:"green"
@@ -137,11 +201,14 @@
             }
 
             function addHandler(marker, site) {
-                marker.addEventListener("mouseover", function(){
+                marker.addEventListener("mouseover", markerHandler);
+                marker.addEventListener("click", markerHandler);
+
+                function markerHandler() {
                     var newsData = newsDatas[site];
                     // console.log(newsData);
                     showInfo(newsData);
-                });
+                }
 
 
                 function showInfo(data) {

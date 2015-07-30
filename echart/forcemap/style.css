@@ -1,13 +1,20 @@
-body { margin:0; font-family:"微软雅黑"; font-size:14px; }
+body { margin:0; font-family:"微软雅黑"; font-size:14px;background:#154815 url(images/index_bg.jpg) top center no-repeat; }
 .w980 {width:980px;margin:0 auto;}
 
 /*clear*/
 .clear{ clear:both;}
 .clearfix:after{display:block;clear:both;content:".";visibility:hidden; height:0;}
 
+em,i{ font-style:normal;} 
+.top_nav {width:100%;height:37px;background:url(images/topnav01.gif) repeat-x;}
+.top_nav img{float:left;vertical-align:middle;margin:2px 20px auto 20px;}
+.top_nav span{float:right;margin-right:10px;color:#565656;}	
+.top_nav span.bds_more{margin-top:0px;}
+.top_nav span a{color:#565656;}
+.top_nav b{float:left;font-size:18px;color:#BE140B;font-family:\9ED41\4F53;margin-left:10px;}
+#bdshare{margin-top:5px;}
+
 #index {
-	height:1050px;
-	background:#154815 url(images/index_bg.jpg) top center no-repeat;
 	position:relative;
 }
 
@@ -17,7 +24,7 @@ body { margin:0; font-family:"微软雅黑"; font-size:14px; }
 	clear:both;
 	color:white;
 	font-size:16px;
-	padding-top:370px;
+	padding-top:340px;
 }
 #editor_word p {margin:10px;}
 
@@ -25,22 +32,30 @@ body { margin:0; font-family:"微软雅黑"; font-size:14px; }
 	color:white; 
 	display:inline-block; 
 	font-size: 16px; 
-	padding-left:24px; 
-	background:url(images/mouse_icon.png) no-repeat;
+	padding-left:28px; 
+	background:url(images/mouse_icon_yellow.png) no-repeat;
 	height:31px;
 	line-height: 31px;
 	cursor:pointer;
 	float:right;
-	padding-right:220px;
-	margin-top:40px;
+	/* padding-right:220px; */
+	width:320px;
+	margin-top:30px;
+	visibility:hidden;
+	color:#d4281a;
+	font-weight: bold;
 }
 
 #enter_btn:hover {text-decoration: underline;}
 
-#map-container {display:none;height:100%;overflow: hidden;}
+#map-container {
+	display:none;
+	/* height:100%; */
+	/*overflow: hidden;*/
+}
 #map-header {
 	background:url(images/header.jpg) no-repeat top center;
-	height:140px;
+	height:103px;
 }
 
 #main {
@@ -54,7 +69,7 @@ body { margin:0; font-family:"微软雅黑"; font-size:14px; }
 .BMap_bubble_content .date {
 	background-color:#00955d;
 	color:white;
-	display:inline-block;
+	display:inline;
 	padding:2px 10px;
 	position:relative;
 }
