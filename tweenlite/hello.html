@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Hello TweenLite</title>
+	<script src="js/TweenLite.min.js"></script>
+	<script src="js/plugins/CSSPlugin.min.js"></script>
+	<style>
+	.btn { width:100px;height:40px;cursor:pointer;background:#CCC;line-height:40px;text-align:center; }
+	.btn:hover {color:#FFF;background:steelblue;}
+	div img {pointer-events:none;}
+	</style>
+</head>
+<body>
+	<div>
+		<img id="knob" src="images/knob.png">
+	</div>
+	<div class="btn" onclick="play();">Click me</div>
+
+	<script>
+
+		var i = 0;
+		function play(){
+			console.log("play");
+			i++;
+			var angle = Math.random() * 360 + 360 * i;
+			TweenLite.to("#knob", .4, {rotation:angle + "deg"});
+		}
+	</script>
+</body>
+</html>
